@@ -2138,9 +2138,32 @@
         <div class="testimonials">
             <div class="testimonials-title">💬 ¿Qué dicen nuestros ganadores?</div>
             
-            <!-- Contenedor de testimonios rotativos -->
-            <div id="rotatingTestimonials" style="display: flex; flex-direction: column; gap: 15px;">
-                <!-- Los testimonios se cargarán aquí dinámicamente -->
+            <!-- Indicador de nuevos comentarios -->
+            <div id="newCommentIndicator" style="display: none; text-align: center; margin-bottom: 15px;">
+                <span style="background: linear-gradient(135deg, #00ff88, #00d4ff); color: #000; padding: 6px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; animation: pulse 1s infinite;">
+                    ✨ Nuevo comentario agregado
+                </span>
+            </div>
+            
+            <!-- Contenedor de testimonios tipo carrusel -->
+            <div id="testimonialCarousel" style="position: relative; min-height: 180px; overflow: hidden;">
+                <div id="currentTestimonial" style="transition: all 0.5s ease;">
+                    <!-- El testimonio actual aparece aquí -->
+                </div>
+            </div>
+            
+            <!-- Indicadores de navegación -->
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 20px;">
+                <button id="prevTestimonial" style="background: rgba(0, 255, 136, 0.2); border: 1px solid rgba(0, 255, 136, 0.5); color: #00ff88; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; transition: all 0.3s ease;">←</button>
+                <div id="testimonialDots" style="display: flex; gap: 8px;">
+                    <!-- Los dots se generan dinámicamente -->
+                </div>
+                <button id="nextTestimonial" style="background: rgba(0, 255, 136, 0.2); border: 1px solid rgba(0, 255, 136, 0.5); color: #00ff88; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; transition: all 0.3s ease;">→</button>
+            </div>
+            
+            <!-- Contador de testimonios -->
+            <div style="text-align: center; margin-top: 10px; font-size: 0.85rem; color: #888;">
+                <span id="testimonialCounter">1</span> de <span id="testimonialTotal">0</span> testimonios
             </div>
 
             <!-- Formulario para agregar comentarios -->
@@ -2488,13 +2511,12 @@
     </script>
 
 <script>
-        // Sistema de testimonios rotativos integrado con comentarios de usuarios
+        // Sistema de carrusel de testimonios dinámico
         const commentForm = document.getElementById('commentForm');
         const userNameInput = document.getElementById('userName');
         const userCommentInput = document.getElementById('userComment');
-        const rotatingTestimonials = document.getElementById('rotatingTestimonials');
 
-        // Testimonios base verificados (los originales)
+        // Testimonios base verificados
         const baseTestimonials = [
             { name: 'Carlos M.', avatar: 'C', text: 'No lo podía creer cuando vi el bono del 500%. Deposité $50 y jugué con $300. ¡Ya retiré mis primeras ganancias!', amount: '$850', verified: true },
             { name: 'María G.', avatar: 'M', text: 'Mejor plataforma que he probado. El bono es real y los retiros son super rápidos. 100% recomendado.', amount: '$1,200', verified: true },
@@ -2523,16 +2545,14 @@
             { name: 'Catalina M.', avatar: 'C', text: 'Mis retiros siempre llegan en menos de 24 horas. Eso me da mucha confianza de la plataforma.', amount: '$1,340', verified: true }
         ];
 
-        let testimonialRotationIndex = 0;
-
         // Obtener comentarios de usuarios guardados
         function getUserComments() {
             const savedComments = localStorage.getItem('userComments');
             return savedComments ? JSON.parse(savedComments) : [];
         }
 
-        // Obtener testimonios mezclados y rotados
-        function getRotatedTestimonials() {
+        // Obtener todos los testimonios
+        function getAllTestimonials() {
             const userComments = getUserComments();
             
             // Convertir comentarios de usuario al formato de testimonios
@@ -2546,33 +2566,29 @@
                 isUserComment: true
             }));
             
-            // Combinar todos los testimonios
-            const allTestimonials = [...userTestimonials, ...baseTestimonials];
-            
-            // Seleccionar 4 testimonios rotativos
-            const displayCount = 4;
-            const rotatedTestimonials = [];
-            
-            for (let i = 0; i < displayCount; i++) {
-                const index = (testimonialRotationIndex + i) % allTestimonials.length;
-                rotatedTestimonials.push(allTestimonials[index]);
-            }
-            
-            return rotatedTestimonials;
+            // Combinar todos los testimonios (usuarios primero)
+            return [...userTestimonials, ...baseTestimonials];
         }
 
-        // Renderizar testimonios con animación
-        function renderTestimonials() {
-            const testimonials = getRotatedTestimonials();
-            const container = document.getElementById('rotatingTestimonials');
+        let currentTestimonialIndex = 0;
+        let allTestimonials = [];
+        let autoRotateInterval = null;
+
+        // Renderizar un testimonio específico con animación
+        function renderTestimonial(index, direction = 'next') {
+            const container = document.getElementById('currentTestimonial');
+            const t = allTestimonials[index];
             
-            // Aplicar fade out
+            // Animación de salida
+            const slideOut = direction === 'next' ? 'translateX(-100%)' : 'translateX(100%)';
+            const slideIn = direction === 'next' ? 'translateX(100%)' : 'translateX(-100%)';
+            
+            container.style.transform = slideOut;
             container.style.opacity = '0';
-            container.style.transition = 'opacity 0.4s ease';
             
             setTimeout(() => {
-                container.innerHTML = testimonials.map((t, index) => `
-                    <div class="testimonial-card" style="animation: fadeInUp 0.5s ease forwards; animation-delay: ${index * 0.1}s; opacity: 0;">
+                container.innerHTML = `
+                    <div class="testimonial-card" style="margin: 0; border: 2px solid ${t.isUserComment ? 'rgba(255, 107, 53, 0.5)' : 'rgba(0, 255, 136, 0.3)'};">
                         <div class="testimonial-header">
                             <div class="testimonial-avatar" style="${t.isUserComment ? 'background: linear-gradient(135deg, #ff6b35, #ff2d75);' : ''}">${t.avatar}</div>
                             <div class="testimonial-info">
@@ -2587,15 +2603,114 @@
                         </div>
                         <div class="testimonial-text">"${t.text}"</div>
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px;">
-                            ${t.amount ? `<div class="testimonial-amount">💰 Ganó ${t.amount}</div>` : `<span style="font-size: 0.75rem; color: #888;">${t.date || 'Recientemente'}</span>`}
+                            ${t.amount ? `<div class="testimonial-amount">💰 Ganó ${t.amount}</div>` : `<span style="font-size: 0.75rem; color: #888;">${t.date || 'hace poco'}</span>`}
                             ${t.isUserComment ? `<button onclick="deleteUserComment('${t.name}', '${t.date}')" style="background: rgba(255, 0, 0, 0.2); border: 1px solid #ff0055; color: #ff0055; padding: 4px 12px; border-radius: 5px; cursor: pointer; font-size: 0.75rem; font-weight: 600;">Eliminar</button>` : ''}
                         </div>
                     </div>
-                `).join('');
+                `;
                 
-                // Aplicar fade in
-                container.style.opacity = '1';
-            }, 400);
+                // Animación de entrada
+                container.style.transform = slideIn;
+                setTimeout(() => {
+                    container.style.transform = 'translateX(0)';
+                    container.style.opacity = '1';
+                }, 50);
+            }, 300);
+            
+            // Actualizar dots
+            updateDots(index);
+            
+            // Actualizar contador
+            document.getElementById('testimonialCounter').textContent = index + 1;
+        }
+
+        // Crear dots de navegación
+        function createDots() {
+            const dotsContainer = document.getElementById('testimonialDots');
+            dotsContainer.innerHTML = '';
+            
+            // Máximo 10 dots visibles
+            const maxDots = Math.min(allTestimonials.length, 10);
+            
+            for (let i = 0; i < maxDots; i++) {
+                const dot = document.createElement('span');
+                dot.style.cssText = `
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.3);
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                `;
+                dot.onclick = () => goToTestimonial(i);
+                dotsContainer.appendChild(dot);
+            }
+            
+            document.getElementById('testimonialTotal').textContent = allTestimonials.length;
+        }
+
+        // Actualizar el dot activo
+        function updateDots(activeIndex) {
+            const dots = document.querySelectorAll('#testimonialDots span');
+            const maxDots = dots.length;
+            
+            dots.forEach((dot, i) => {
+                if (i === activeIndex % maxDots) {
+                    dot.style.background = 'linear-gradient(135deg, #00ff88, #00d4ff)';
+                    dot.style.transform = 'scale(1.3)';
+                    dot.style.boxShadow = '0 0 10px rgba(0, 255, 136, 0.5)';
+                } else {
+                    dot.style.background = 'rgba(255, 255, 255, 0.3)';
+                    dot.style.transform = 'scale(1)';
+                    dot.style.boxShadow = 'none';
+                }
+            });
+        }
+
+        // Ir a un testimonio específico
+        function goToTestimonial(index) {
+            const direction = index > currentTestimonialIndex ? 'next' : 'prev';
+            currentTestimonialIndex = index;
+            renderTestimonial(currentTestimonialIndex, direction);
+            resetAutoRotate();
+        }
+
+        // Siguiente testimonio
+        function nextTestimonial() {
+            currentTestimonialIndex = (currentTestimonialIndex + 1) % allTestimonials.length;
+            renderTestimonial(currentTestimonialIndex, 'next');
+        }
+
+        // Testimonio anterior
+        function prevTestimonial() {
+            currentTestimonialIndex = (currentTestimonialIndex - 1 + allTestimonials.length) % allTestimonials.length;
+            renderTestimonial(currentTestimonialIndex, 'prev');
+        }
+
+        // Reset auto-rotate
+        function resetAutoRotate() {
+            clearInterval(autoRotateInterval);
+            autoRotateInterval = setInterval(nextTestimonial, 4000);
+        }
+
+        // Inicializar carrusel
+        function initCarousel() {
+            allTestimonials = getAllTestimonials();
+            createDots();
+            renderTestimonial(0, 'next');
+            
+            // Botones de navegación
+            document.getElementById('prevTestimonial').onclick = () => {
+                prevTestimonial();
+                resetAutoRotate();
+            };
+            document.getElementById('nextTestimonial').onclick = () => {
+                nextTestimonial();
+                resetAutoRotate();
+            };
+            
+            // Iniciar auto-rotación cada 4 segundos
+            autoRotateInterval = setInterval(nextTestimonial, 4000);
         }
 
         // Guardar nuevo comentario
@@ -2608,7 +2723,7 @@
                 date: new Date().toLocaleString('es-CL')
             };
 
-            comments.unshift(newComment); // Agregar al inicio
+            comments.unshift(newComment);
             localStorage.setItem('userComments', JSON.stringify(comments));
             
             return comments;
@@ -2622,7 +2737,14 @@
             if (index > -1) {
                 comments.splice(index, 1);
                 localStorage.setItem('userComments', JSON.stringify(comments));
-                renderTestimonials();
+                
+                // Recargar carrusel
+                allTestimonials = getAllTestimonials();
+                createDots();
+                if (currentTestimonialIndex >= allTestimonials.length) {
+                    currentTestimonialIndex = 0;
+                }
+                renderTestimonial(currentTestimonialIndex, 'next');
             }
         };
 
@@ -2636,9 +2758,18 @@
             if (name && text) {
                 saveComment(name, text);
                 
-                // Reset rotation para mostrar el nuevo comentario primero
-                testimonialRotationIndex = 0;
-                renderTestimonials();
+                // Recargar carrusel y mostrar el nuevo comentario
+                allTestimonials = getAllTestimonials();
+                createDots();
+                currentTestimonialIndex = 0;
+                renderTestimonial(0, 'next');
+                
+                // Mostrar indicador de nuevo comentario
+                const indicator = document.getElementById('newCommentIndicator');
+                indicator.style.display = 'block';
+                setTimeout(() => {
+                    indicator.style.display = 'none';
+                }, 3000);
                 
                 // Limpiar formulario
                 userNameInput.value = '';
@@ -2653,17 +2784,13 @@
                     btn.textContent = originalText;
                     btn.style.background = 'linear-gradient(135deg, #00ea98, #00d084)';
                 }, 2000);
+                
+                resetAutoRotate();
             }
         });
 
-        // Rotar testimonios cada 6 segundos
-        setInterval(() => {
-            testimonialRotationIndex++;
-            renderTestimonials();
-        }, 6000);
-
-        // Cargar testimonios cuando se abre la página
-        document.addEventListener('DOMContentLoaded', renderTestimonials);
+        // Cargar carrusel cuando se abre la página
+        document.addEventListener('DOMContentLoaded', initCarousel);
     </script>
 </body>
 </html>
