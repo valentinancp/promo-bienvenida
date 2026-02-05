@@ -2535,6 +2535,35 @@
         </div>
     </section>
 
+    <section style="max-width: 800px; margin: 40px auto; padding: 20px;">
+        <h2 style="color: #00ea98; text-align: center; font-family: 'Orbitron', sans-serif; margin-bottom: 30px;">
+            COMPARTE TU EXPERIENCIA
+        </h2>
+
+        <div style="background: rgba(31, 39, 66, 0.6); padding: 25px; border-radius: 15px; border: 2px solid rgba(0, 234, 152, 0.3); margin-bottom: 30px;">
+            <form id="commentForm" style="display: flex; flex-direction: column; gap: 15px;">
+                <div>
+                    <label style="display: block; color: #00ea98; font-weight: 700; margin-bottom: 8px; font-size: 0.95rem;">Tu Nombre</label>
+                    <input type="text" id="userName" placeholder="Escribe tu nombre aquí..." style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(0, 234, 152, 0.3); border-radius: 8px; color: white; font-size: 0.95rem;" required>
+                </div>
+                <div>
+                    <label style="display: block; color: #00ea98; font-weight: 700; margin-bottom: 8px; font-size: 0.95rem;">Tu Comentario</label>
+                    <textarea id="userComment" placeholder="Comparte tu experiencia con 1win..." style="width: 100%; padding: 12px; min-height: 100px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(0, 234, 152, 0.3); border-radius: 8px; color: white; font-size: 0.95rem; resize: vertical;" required></textarea>
+                </div>
+                <button type="submit" style="padding: 12px 30px; background: linear-gradient(135deg, #00ea98, #00d084); color: #000; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; font-size: 0.95rem; text-transform: uppercase; transition: all 0.3s ease;">
+                    Guardar Comentario
+                </button>
+            </form>
+        </div>
+
+        <div id="commentsContainer">
+            <h3 style="color: #00ea98; margin-bottom: 20px; font-size: 1.2rem;">Comentarios de Usuarios</h3>
+            <div id="commentsList" style="display: flex; flex-direction: column; gap: 15px;">
+                <p style="color: #ccc; text-align: center; font-size: 0.95rem;">Cargando comentarios...</p>
+            </div>
+        </div>
+    </section>
+
     <footer style="margin-top: 50px; padding: 20px; font-size: 0.8rem; color: #555; text-align: left; max-width: 600px;">
         <h2>Sobre el Bono de Bienvenida 1win</h2>
         <p>Esta oferta es válida para nuevos usuarios en Chile y Latinoamérica. El código promocional permite acceder a un multiplicador del 500% dividido en las primeras cuatro recargas.</p>
@@ -2546,5 +2575,91 @@
         </ol>
         <p>Plataforma segura con retiro inmediato a través de bancos locales y criptomonedas.</p>
     </footer>
+
+    <script>
+        // Gestión de comentarios con localStorage
+        const commentForm = document.getElementById('commentForm');
+        const userNameInput = document.getElementById('userName');
+        const userCommentInput = document.getElementById('userComment');
+        const commentsList = document.getElementById('commentsList');
+
+        // Cargar comentarios guardados al abrir la página
+        function loadComments() {
+            const savedComments = localStorage.getItem('userComments');
+            const comments = savedComments ? JSON.parse(savedComments) : [];
+            
+            displayComments(comments);
+        }
+
+        // Mostrar comentarios en la página
+        function displayComments(comments) {
+            if (comments.length === 0) {
+                commentsList.innerHTML = '<p style="color: #ccc; text-align: center; font-size: 0.95rem;">No hay comentarios aún. ¡Sé el primero en compartir tu experiencia!</p>';
+                return;
+            }
+
+            commentsList.innerHTML = comments.map((comment, index) => `
+                <div style="background: rgba(0, 234, 152, 0.1); border: 1px solid rgba(0, 234, 152, 0.3); border-radius: 10px; padding: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                        <h4 style="color: #00ea98; font-size: 1rem; margin: 0;">${comment.name}</h4>
+                        <button onclick="deleteComment(${index})" style="background: rgba(255, 0, 0, 0.2); border: 1px solid #ff0055; color: #ff0055; padding: 4px 12px; border-radius: 5px; cursor: pointer; font-size: 0.75rem; font-weight: 600;">Eliminar</button>
+                    </div>
+                    <p style="color: #ccc; font-size: 0.95rem; line-height: 1.6; margin: 0;">${comment.text}</p>
+                    <p style="color: #888; font-size: 0.75rem; margin-top: 8px; margin-bottom: 0;">${comment.date}</p>
+                </div>
+            `).join('');
+        }
+
+        // Guardar nuevo comentario
+        function saveComment(name, text) {
+            const savedComments = localStorage.getItem('userComments');
+            const comments = savedComments ? JSON.parse(savedComments) : [];
+            
+            const newComment = {
+                name: name,
+                text: text,
+                date: new Date().toLocaleString('es-CL')
+            };
+
+            comments.push(newComment);
+            localStorage.setItem('userComments', JSON.stringify(comments));
+            
+            return comments;
+        }
+
+        // Eliminar comentario
+        window.deleteComment = function(index) {
+            const savedComments = localStorage.getItem('userComments');
+            const comments = savedComments ? JSON.parse(savedComments) : [];
+            
+            comments.splice(index, 1);
+            localStorage.setItem('userComments', JSON.stringify(comments));
+            
+            displayComments(comments);
+        };
+
+        // Manejar envío del formulario
+        commentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = userNameInput.value.trim();
+            const text = userCommentInput.value.trim();
+            
+            if (name && text) {
+                const updatedComments = saveComment(name, text);
+                displayComments(updatedComments);
+                
+                // Limpiar formulario
+                userNameInput.value = '';
+                userCommentInput.value = '';
+                
+                // Mostrar confirmación
+                alert('¡Comentario guardado exitosamente!');
+            }
+        });
+
+        // Cargar comentarios cuando se abre la página
+        document.addEventListener('DOMContentLoaded', loadComments);
+    </script>
 </body>
 </html>
