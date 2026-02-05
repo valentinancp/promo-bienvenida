@@ -12,6 +12,11 @@
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://via.placeholder.com/1200x630/0d111e/00ea98?text=BONO+500%25">
     
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    
     <title>🎁 Bono Exclusivo +500% | Oferta Limitada</title>
     
     <style>
@@ -22,21 +27,81 @@
         }
         
         :root {
-            --dark-bg: #0d111e;
-            --darker-bg: #080b14;
-            --neon-green: #00ea98;
-            --neon-pink: #ff006e;
-            --neon-purple: #8b5cf6;
+            --dark-bg: #0a0e1a;
+            --darker-bg: #050810;
+            --card-bg: rgba(15, 20, 35, 0.8);
+            --neon-green: #00ff88;
+            --neon-green-dark: #00c96b;
+            --neon-pink: #ff2d75;
+            --neon-purple: #a855f7;
+            --neon-blue: #00d4ff;
+            --neon-gold: #ffd700;
+            --neon-orange: #ff6b35;
             --text-white: #ffffff;
             --text-gray: #9ca3af;
+            --text-light: #e5e7eb;
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--darker-bg);
             color: var(--text-white);
             overflow-x: hidden;
             min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 255, 136, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 60%),
+                linear-gradient(180deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+        }
+        
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            animation: floatUp linear infinite;
+            opacity: 0;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
+            }
         }
         
         /* Loader */
@@ -46,35 +111,107 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--dark-bg);
+            background: var(--darker-bg);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.5s ease-out;
+            transition: opacity 0.6s ease-out, visibility 0.6s;
         }
         
         #loader.hidden {
             opacity: 0;
-            pointer-events: none;
+            visibility: hidden;
+        }
+        
+        .loader-container {
+            text-align: center;
+        }
+        
+        .loader-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            animation: logoGlow 2s ease-in-out infinite;
+        }
+        
+        @keyframes logoGlow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.5)); }
+            50% { filter: drop-shadow(0 0 40px rgba(0, 255, 136, 0.8)); }
         }
         
         .loader-spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(0, 234, 152, 0.1);
-            border-top: 4px solid var(--neon-green);
+            width: 80px;
+            height: 80px;
+            position: relative;
+            margin: 0 auto 30px;
+        }
+        
+        .loader-spinner::before,
+        .loader-spinner::after {
+            content: '';
+            position: absolute;
             border-radius: 50%;
+        }
+        
+        .loader-spinner::before {
+            width: 100%;
+            height: 100%;
+            border: 4px solid transparent;
+            border-top-color: var(--neon-green);
+            border-right-color: var(--neon-blue);
             animation: spin 1s linear infinite;
-            margin-bottom: 20px;
+        }
+        
+        .loader-spinner::after {
+            width: 60%;
+            height: 60%;
+            top: 20%;
+            left: 20%;
+            border: 4px solid transparent;
+            border-bottom-color: var(--neon-purple);
+            border-left-color: var(--neon-pink);
+            animation: spin 0.8s linear infinite reverse;
+        }
+        
+        .loader-progress {
+            width: 200px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 0 auto 15px;
+        }
+        
+        .loader-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-green), var(--neon-blue));
+            border-radius: 10px;
+            animation: loading 1.5s ease-in-out;
+        }
+        
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
         }
         
         .loader-text {
-            font-size: 18px;
-            color: var(--neon-green);
-            text-shadow: 0 0 10px var(--neon-green);
+            font-size: 16px;
+            color: var(--text-gray);
             animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        .loader-status {
+            font-size: 14px;
+            color: var(--neon-green);
+            margin-top: 10px;
+            font-weight: 600;
         }
         
         @keyframes spin {
@@ -89,274 +226,839 @@
         
         /* Main Content */
         main {
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
             padding: 20px;
+            position: relative;
+            z-index: 1;
             opacity: 0;
-            animation: fadeIn 0.8s ease-in forwards;
-            animation-delay: 0.2s;
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 0.3s;
         }
         
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-        
-        /* Header Badge */
-        .badge {
-            background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink));
-            display: inline-block;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 14px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-            animation: slideDown 0.6s ease-out;
-            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
-        }
-        
-        @keyframes slideDown {
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(-30px);
+                transform: translateY(40px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+        
+        /* Top Bar */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background: #ff3b3b;
+            border-radius: 50%;
+            animation: livePulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes livePulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 59, 59, 0.7); }
+            50% { box-shadow: 0 0 0 8px rgba(255, 59, 59, 0); }
+        }
+        
+        .online-users {
+            font-size: 14px;
+            color: var(--text-gray);
+        }
+        
+        .online-users span {
+            color: var(--neon-green);
+            font-weight: 700;
+        }
+        
+        /* VIP Badge */
+        .vip-badge {
+            background: linear-gradient(135deg, var(--neon-gold) 0%, #ff9500 50%, var(--neon-gold) 100%);
+            background-size: 200% 200%;
+            animation: goldShine 3s ease infinite;
+            color: #000;
+            padding: 6px 15px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        @keyframes goldShine {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Header Badge */
+        .badge-container {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .badge {
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            animation: badgePop 0.6s ease-out, badgeFloat 3s ease-in-out infinite;
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.5), inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+        
+        @keyframes badgePop {
+            from {
+                opacity: 0;
+                transform: scale(0.5) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
+        @keyframes badgeFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
         
         /* Hero Section */
         header {
             text-align: center;
-            padding: 40px 20px;
-            animation: slideUp 0.8s ease-out;
+            padding: 30px 20px;
         }
         
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .exclusive-tag {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.2);
+            border: 1px solid var(--neon-gold);
+            color: var(--neon-gold);
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            animation: shine 2s linear infinite;
+        }
+        
+        @keyframes shine {
+            0% { box-shadow: 0 0 5px rgba(255, 215, 0, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
+            100% { box-shadow: 0 0 5px rgba(255, 215, 0, 0.3); }
         }
         
         h1 {
-            font-size: 2.5rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
             margin-bottom: 15px;
-            background: linear-gradient(135deg, var(--neon-green), var(--neon-purple));
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-blue), var(--neon-purple));
+            background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            line-height: 1.2;
-            text-shadow: 0 0 30px rgba(0, 234, 152, 0.3);
+            line-height: 1.1;
+            animation: gradientMove 4s ease infinite;
         }
         
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            max-width: 400px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+        
+        /* Main Offer Box */
         .offer-box {
-            background: rgba(0, 234, 152, 0.1);
-            border: 2px solid var(--neon-green);
-            border-radius: 20px;
-            padding: 30px;
+            background: var(--card-bg);
+            border: 2px solid transparent;
+            border-radius: 25px;
+            padding: 40px 30px;
             margin: 30px 0;
             position: relative;
-            box-shadow: 0 0 40px rgba(0, 234, 152, 0.3);
-            animation: glow 2s ease-in-out infinite alternate;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            animation: offerAppear 0.8s ease-out;
         }
         
-        @keyframes glow {
+        .offer-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 25px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            background-size: 300% 300%;
+            animation: borderGlow 4s ease infinite;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+        
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes offerAppear {
             from {
-                box-shadow: 0 0 20px rgba(0, 234, 152, 0.3);
+                opacity: 0;
+                transform: scale(0.9);
             }
             to {
-                box-shadow: 0 0 40px rgba(0, 234, 152, 0.6);
+                opacity: 1;
+                transform: scale(1);
             }
+        }
+        
+        .offer-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 255, 136, 0.3) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            animation: pulseGlow 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+        }
+        
+        .offer-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        
+        .offer-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-gray);
+            margin-bottom: 10px;
         }
         
         .offer-amount {
-            font-size: 4rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5rem;
             font-weight: 900;
             color: var(--neon-green);
-            text-shadow: 0 0 30px var(--neon-green);
+            text-shadow: 
+                0 0 20px rgba(0, 255, 136, 0.8),
+                0 0 40px rgba(0, 255, 136, 0.5),
+                0 0 60px rgba(0, 255, 136, 0.3);
             line-height: 1;
+            animation: numberPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes numberPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
         }
         
         .offer-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-gray);
+            font-size: 1.3rem;
+            color: var(--text-light);
             margin-top: 10px;
+            font-weight: 600;
+        }
+        
+        .offer-description {
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            margin-top: 15px;
+            padding: 15px 20px;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+        
+        /* Bonus Breakdown */
+        .bonus-breakdown {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .bonus-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .bonus-item:hover {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: rgba(0, 255, 136, 0.3);
+            transform: translateY(-3px);
+        }
+        
+        .bonus-item-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--neon-green);
+        }
+        
+        .bonus-item-label {
+            font-size: 0.75rem;
+            color: var(--text-gray);
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         /* Countdown Timer */
         .countdown-container {
-            background: rgba(255, 0, 110, 0.1);
+            background: linear-gradient(135deg, rgba(255, 45, 117, 0.15), rgba(168, 85, 247, 0.15));
             border: 2px solid var(--neon-pink);
-            border-radius: 15px;
-            padding: 20px;
+            border-radius: 20px;
+            padding: 25px;
             margin: 30px 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: urgencyPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes urgencyPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 45, 117, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(255, 45, 117, 0.6); }
+        }
+        
+        .countdown-warning {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--neon-pink);
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         .countdown-title {
-            font-size: 14px;
+            font-size: 16px;
             text-transform: uppercase;
-            color: var(--neon-pink);
-            margin-bottom: 10px;
+            color: var(--text-light);
+            margin: 20px 0 15px;
             letter-spacing: 2px;
+            font-weight: 600;
         }
         
-        #countdown {
-            font-size: 2.5rem;
-            font-weight: bold;
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .countdown-item {
+            text-align: center;
+        }
+        
+        .countdown-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
             color: var(--neon-pink);
-            font-family: 'Courier New', monospace;
-            text-shadow: 0 0 20px var(--neon-pink);
+            text-shadow: 0 0 20px rgba(255, 45, 117, 0.8);
+            background: rgba(255, 45, 117, 0.1);
+            padding: 10px 20px;
+            border-radius: 10px;
+            min-width: 90px;
+            display: block;
+        }
+        
+        .countdown-label {
+            font-size: 11px;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 8px;
+        }
+        
+        .countdown-separator {
+            font-size: 3rem;
+            color: var(--neon-pink);
+            line-height: 1.5;
+            opacity: 0.5;
+        }
+        
+        /* Spots remaining */
+        .spots-remaining {
+            background: rgba(255, 107, 53, 0.2);
+            border: 1px solid var(--neon-orange);
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .spots-icon {
+            font-size: 1.5rem;
+            animation: bounce 1s ease infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .spots-text {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+        
+        .spots-number {
+            color: var(--neon-orange);
+            font-weight: 800;
+            font-size: 18px;
+        }
+        
+        .spots-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .spots-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-orange), var(--neon-pink));
+            border-radius: 10px;
+            animation: progressPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes progressPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
         
         /* CTA Button */
+        .cta-container {
+            position: relative;
+            margin: 30px 0;
+        }
+        
+        .cta-arrows {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: var(--neon-green);
+            animation: arrowPulse 1s ease-in-out infinite;
+        }
+        
+        .cta-arrows.left {
+            left: -40px;
+        }
+        
+        .cta-arrows.right {
+            right: -40px;
+        }
+        
+        @keyframes arrowPulse {
+            0%, 100% { opacity: 0.5; transform: translateY(-50%) scale(1); }
+            50% { opacity: 1; transform: translateY(-50%) scale(1.2); }
+        }
+        
         .cta-button {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
             width: 100%;
-            padding: 25px;
-            font-size: 1.5rem;
-            font-weight: bold;
+            padding: 28px 40px;
+            font-size: 1.4rem;
+            font-weight: 800;
             text-transform: uppercase;
-            color: var(--dark-bg);
-            background: linear-gradient(135deg, var(--neon-green), #00c878);
+            letter-spacing: 2px;
+            color: #000;
+            background: linear-gradient(135deg, var(--neon-green) 0%, var(--neon-green-dark) 50%, var(--neon-green) 100%);
+            background-size: 200% 200%;
             border: none;
-            border-radius: 15px;
+            border-radius: 18px;
             cursor: pointer;
             text-decoration: none;
             text-align: center;
-            margin: 30px 0;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 0 40px rgba(0, 234, 152, 0.6);
-            animation: buttonPulse 2s ease-in-out infinite;
-            transition: transform 0.2s ease;
+            box-shadow: 
+                0 0 40px rgba(0, 255, 136, 0.6),
+                0 10px 40px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            animation: buttonGlow 2s ease-in-out infinite, buttonPop 0.5s ease-out;
+            transition: all 0.3s ease;
+        }
+        
+        @keyframes buttonPop {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes buttonGlow {
+            0%, 100% {
+                background-position: 0% 50%;
+                box-shadow: 
+                    0 0 40px rgba(0, 255, 136, 0.6),
+                    0 10px 40px rgba(0, 0, 0, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            }
+            50% {
+                background-position: 100% 50%;
+                box-shadow: 
+                    0 0 60px rgba(0, 255, 136, 0.9),
+                    0 10px 50px rgba(0, 0, 0, 0.4),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            }
         }
         
         .cta-button:hover {
-            transform: scale(1.05);
+            transform: scale(1.03) translateY(-2px);
+            box-shadow: 
+                0 0 80px rgba(0, 255, 136, 1),
+                0 15px 50px rgba(0, 0, 0, 0.4);
         }
         
         .cta-button:active {
             transform: scale(0.98);
         }
         
-        @keyframes buttonPulse {
-            0%, 100% {
-                box-shadow: 0 0 40px rgba(0, 234, 152, 0.6);
-            }
-            50% {
-                box-shadow: 0 0 60px rgba(0, 234, 152, 0.9);
-            }
-        }
-        
         .cta-button::before {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 2s infinite;
         }
         
-        .cta-button:hover::before {
-            width: 300px;
-            height: 300px;
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
         
-        .cta-button span {
+        .cta-button-icon {
+            font-size: 1.8rem;
+            animation: iconBounce 1s ease-in-out infinite;
+        }
+        
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-3px) rotate(-5deg); }
+            75% { transform: translateY(-3px) rotate(5deg); }
+        }
+        
+        .cta-button-text {
             position: relative;
             z-index: 1;
+        }
+        
+        .cta-subtext {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            color: var(--text-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .cta-subtext span {
+            color: var(--neon-green);
+        }
+        
+        /* Trust Section */
+        .trust-section {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        .trust-title {
+            text-align: center;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-gray);
+            margin-bottom: 25px;
+        }
+        
+        .trust-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            text-align: center;
+        }
+        
+        .trust-stat {
+            padding: 15px;
+        }
+        
+        .trust-stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+        
+        .trust-stat-label {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         /* Features Grid */
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 15px;
             margin: 30px 0;
         }
         
         .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(0, 234, 152, 0.3);
-            border-radius: 12px;
-            padding: 20px;
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 16px;
+            padding: 25px 20px;
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-green), var(--neon-blue));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .feature-card:hover::before {
+            transform: scaleX(1);
         }
         
         .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 234, 152, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.2);
+            border-color: rgba(0, 255, 136, 0.5);
         }
         
         .feature-icon {
-            font-size: 2rem;
-            margin-bottom: 10px;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .feature-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 8px;
         }
         
         .feature-text {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-gray);
+            line-height: 1.4;
         }
         
-        /* Social Proof Notification */
-        .notification {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(13, 17, 30, 0.95);
-            border: 1px solid var(--neon-green);
-            border-radius: 10px;
-            padding: 15px 20px;
-            max-width: 300px;
-            box-shadow: 0 5px 25px rgba(0, 234, 152, 0.3);
-            transform: translateX(-400px);
-            transition: transform 0.5s ease;
-            z-index: 1000;
+        /* Testimonials */
+        .testimonials {
+            margin: 40px 0;
         }
         
-        .notification.show {
-            transform: translateX(0);
+        .testimonials-title {
+            text-align: center;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-gray);
+            margin-bottom: 25px;
         }
         
-        .notification-content {
+        .testimonial-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            border-color: rgba(0, 255, 136, 0.3);
+        }
+        
+        .testimonial-header {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
+            margin-bottom: 15px;
         }
         
-        .notification-avatar {
-            width: 40px;
-            height: 40px;
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
             background: linear-gradient(135deg, var(--neon-green), var(--neon-purple));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            flex-shrink: 0;
+            font-size: 1.2rem;
+            font-weight: 700;
         }
         
-        .notification-text {
-            font-size: 0.85rem;
-            line-height: 1.4;
+        .testimonial-info {
+            flex: 1;
         }
         
-        .notification-user {
+        .testimonial-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-white);
+        }
+        
+        .testimonial-meta {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .testimonial-verified {
             color: var(--neon-green);
-            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .testimonial-stars {
+            color: var(--neon-gold);
+            font-size: 1rem;
+        }
+        
+        .testimonial-text {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            font-style: italic;
+        }
+        
+        .testimonial-amount {
+            display: inline-block;
+            background: rgba(0, 255, 136, 0.2);
+            color: var(--neon-green);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-top: 12px;
+        }
+        
+        /* Payment Methods */
+        .payment-section {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 30px;
+        }
+        
+        .payment-title {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-gray);
+            margin-bottom: 20px;
+        }
+        
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .payment-method {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         /* Footer */
@@ -370,35 +1072,172 @@
         .trust-badges {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
+            gap: 25px;
+            margin: 25px 0;
             flex-wrap: wrap;
         }
         
         .trust-badge {
             display: flex;
             align-items: center;
-            gap: 5px;
-            opacity: 0.7;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .trust-badge-icon {
+            font-size: 1.2rem;
+        }
+        
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+        
+        .footer-text {
+            max-width: 400px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        /* Second CTA */
+        .second-cta {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(168, 85, 247, 0.1));
+            border: 2px dashed var(--neon-green);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .second-cta-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--text-white);
+        }
+        
+        .second-cta-text {
+            color: var(--text-gray);
+            margin-bottom: 20px;
+        }
+        
+        /* Social Proof Notification */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--neon-green);
+            border-radius: 15px;
+            padding: 18px 22px;
+            max-width: 320px;
+            box-shadow: 0 10px 40px rgba(0, 255, 136, 0.3);
+            transform: translateX(-400px);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .notification-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-purple));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            font-size: 1.1rem;
+        }
+        
+        .notification-text {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .notification-user {
+            color: var(--neon-green);
+            font-weight: 700;
+        }
+        
+        .notification-action {
+            color: var(--text-light);
+        }
+        
+        .notification-time {
+            font-size: 0.75rem;
+            color: var(--text-gray);
+            margin-top: 3px;
+        }
+        
+        /* Confetti Canvas */
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
         }
         
         /* Responsive */
-        @media (max-width: 600px) {
+        @media (max-width: 650px) {
             h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .offer-amount {
-                font-size: 3rem;
+                font-size: 4rem;
             }
             
-            #countdown {
+            .countdown-value {
+                font-size: 2rem;
+                padding: 8px 12px;
+                min-width: 70px;
+            }
+            
+            .countdown-separator {
                 font-size: 2rem;
             }
             
             .cta-button {
                 font-size: 1.2rem;
-                padding: 20px;
+                padding: 24px 30px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .bonus-breakdown {
+                grid-template-columns: 1fr;
+            }
+            
+            .trust-stats {
+                grid-template-columns: 1fr;
+                gap: 15px;
             }
             
             .notification {
@@ -406,72 +1245,239 @@
                 left: 20px;
                 right: 20px;
             }
+            
+            .cta-arrows {
+                display: none;
+            }
+            
+            .top-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Background Animation -->
+    <div class="bg-animation"></div>
+    
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Confetti Canvas -->
+    <canvas id="confetti-canvas"></canvas>
+    
     <!-- Loader -->
     <div id="loader">
-        <div class="loader-spinner"></div>
-        <div class="loader-text">Verificando disponibilidad de bono...</div>
+        <div class="loader-container">
+            <div class="loader-logo">1WIN</div>
+            <div class="loader-spinner"></div>
+            <div class="loader-progress">
+                <div class="loader-progress-bar"></div>
+            </div>
+            <div class="loader-text">Verificando disponibilidad de bono...</div>
+            <div class="loader-status" id="loaderStatus">Conectando...</div>
+        </div>
     </div>
     
     <!-- Main Content -->
     <main>
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="live-indicator">
+                <div class="live-dot"></div>
+                <span>EN VIVO</span>
+            </div>
+            <div class="vip-badge">⭐ ACCESO VIP</div>
+            <div class="online-users">
+                <span id="onlineUsers">1,247</span> en línea
+            </div>
+        </div>
+        
         <header>
-            <div class="badge">🔥 Oferta Exclusiva</div>
-            <h1>Bono Exclusivo Desbloqueado</h1>
+            <div class="badge-container">
+                <div class="badge">🔥 Oferta Exclusiva Verificada</div>
+            </div>
+            <div class="exclusive-tag">✨ SOLO POR INVITACIÓN</div>
+            <h1>¡Tu Bono Exclusivo Ha Sido Desbloqueado!</h1>
+            <p class="subtitle">Has sido seleccionado para recibir una oferta especial que no está disponible para el público general</p>
         </header>
         
         <section class="offer-box">
-            <div class="offer-amount">+500%</div>
-            <div class="offer-subtitle">En tu Primer Depósito</div>
+            <div class="offer-glow"></div>
+            <div class="offer-content">
+                <div class="offer-label">Bono de Bienvenida</div>
+                <div class="offer-amount">+500%</div>
+                <div class="offer-subtitle">En tu Primer Depósito</div>
+                <div class="offer-description">
+                    💎 Deposita $10 → Juega con $60 | Deposita $50 → Juega con $300 | Deposita $100 → Juega con $600
+                </div>
+                <div class="bonus-breakdown">
+                    <div class="bonus-item">
+                        <div class="bonus-item-value">150</div>
+                        <div class="bonus-item-label">Giros Gratis</div>
+                    </div>
+                    <div class="bonus-item">
+                        <div class="bonus-item-value">$500</div>
+                        <div class="bonus-item-label">Bono Máximo</div>
+                    </div>
+                    <div class="bonus-item">
+                        <div class="bonus-item-value">24h</div>
+                        <div class="bonus-item-label">Acreditación</div>
+                    </div>
+                </div>
+            </div>
         </section>
         
         <div class="countdown-container">
-            <div class="countdown-title">⏰ Esta oferta expira en:</div>
-            <div id="countdown">05:00</div>
+            <div class="countdown-warning">⚡ OFERTA POR TIEMPO LIMITADO</div>
+            <div class="countdown-title">🔥 Esta oferta expira en:</div>
+            <div class="countdown-timer">
+                <div class="countdown-item">
+                    <span class="countdown-value" id="minutes">05</span>
+                    <span class="countdown-label">Minutos</span>
+                </div>
+                <span class="countdown-separator">:</span>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="seconds">00</span>
+                    <span class="countdown-label">Segundos</span>
+                </div>
+            </div>
         </div>
         
-        <a href="https://1wjsit.life/?open=register&p=3w9p" class="cta-button" id="ctaButton">
-            <span>🎁 RECLAMAR PREMIO</span>
-        </a>
+        <div class="spots-remaining">
+            <span class="spots-icon">⚠️</span>
+            <div>
+                <div class="spots-text">Solo quedan <span class="spots-number" id="spotsLeft">7</span> bonos disponibles hoy</div>
+                <div class="spots-bar">
+                    <div class="spots-progress" style="width: 85%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cta-container">
+            <span class="cta-arrows left">👉</span>
+            <a href="https://1wjsit.life/?open=register&p=3w9p" class="cta-button" id="ctaButton">
+                <span class="cta-button-icon">🎁</span>
+                <span class="cta-button-text">RECLAMAR MI BONO AHORA</span>
+            </a>
+            <span class="cta-arrows right">👈</span>
+        </div>
+        
+        <div class="cta-subtext">
+            🔒 Registro en 30 segundos • <span>100% Seguro</span> • Sin costos ocultos
+        </div>
+        
+        <div class="trust-section">
+            <div class="trust-title">📊 Estadísticas en Tiempo Real</div>
+            <div class="trust-stats">
+                <div class="trust-stat">
+                    <div class="trust-stat-value" id="totalPlayers">2.5M+</div>
+                    <div class="trust-stat-label">Jugadores Activos</div>
+                </div>
+                <div class="trust-stat">
+                    <div class="trust-stat-value">$15M+</div>
+                    <div class="trust-stat-label">Pagados este Mes</div>
+                </div>
+                <div class="trust-stat">
+                    <div class="trust-stat-value">4.9★</div>
+                    <div class="trust-stat-label">Calificación</div>
+                </div>
+            </div>
+        </div>
         
         <div class="features">
             <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <div class="feature-text">Activación Instantánea</div>
+                <span class="feature-icon">⚡</span>
+                <div class="feature-title">Activación Instantánea</div>
+                <div class="feature-text">Tu bono se activa automáticamente al hacer tu primer depósito</div>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">🎮</div>
-                <div class="feature-text">Más de 10,000 Juegos</div>
+                <span class="feature-icon">🎮</span>
+                <div class="feature-title">+10,000 Juegos</div>
+                <div class="feature-text">Slots, ruleta, blackjack, apuestas deportivas y más</div>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">💰</div>
-                <div class="feature-text">Retiros Rápidos</div>
+                <span class="feature-icon">💸</span>
+                <div class="feature-title">Retiros Rápidos</div>
+                <div class="feature-text">Retira tus ganancias en menos de 24 horas</div>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">🔒</div>
-                <div class="feature-text">100% Seguro</div>
+                <span class="feature-icon">🛡️</span>
+                <div class="feature-title">100% Seguro</div>
+                <div class="feature-text">Plataforma con licencia y encriptación SSL</div>
+            </div>
+        </div>
+        
+        <div class="testimonials">
+            <div class="testimonials-title">💬 Lo que dicen nuestros ganadores</div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">C</div>
+                    <div class="testimonial-info">
+                        <div class="testimonial-name">Carlos M.</div>
+                        <div class="testimonial-meta">
+                            <span class="testimonial-verified">✓ Verificado</span>
+                            <span class="testimonial-stars">★★★★★</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-text">"No lo podía creer cuando vi el bono del 500%. Deposité $50 y jugué con $300. ¡Ya retiré mis primeras ganancias!"</div>
+                <div class="testimonial-amount">💰 Ganó $850</div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">M</div>
+                    <div class="testimonial-info">
+                        <div class="testimonial-name">María G.</div>
+                        <div class="testimonial-meta">
+                            <span class="testimonial-verified">✓ Verificado</span>
+                            <span class="testimonial-stars">★★★★★</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-text">"Mejor plataforma que he probado. El bono es real y los retiros son super rápidos. 100% recomendado."</div>
+                <div class="testimonial-amount">💰 Ganó $1,200</div>
+            </div>
+        </div>
+        
+        <div class="second-cta">
+            <div class="second-cta-title">⏰ ¿Todavía tienes dudas?</div>
+            <div class="second-cta-text">Esta oferta desaparecerá cuando el temporizador llegue a cero. No pierdas esta oportunidad única.</div>
+            <a href="https://1wjsit.life/?open=register&p=3w9p" class="cta-button" style="font-size: 1.1rem; padding: 20px;">
+                <span>🚀 SÍ, QUIERO MI BONO +500%</span>
+            </a>
+        </div>
+        
+        <div class="payment-section">
+            <div class="payment-title">💳 Métodos de Pago Aceptados</div>
+            <div class="payment-methods">
+                <div class="payment-method">💳 Visa/Mastercard</div>
+                <div class="payment-method">🏦 Transferencia</div>
+                <div class="payment-method">₿ Crypto</div>
+                <div class="payment-method">📱 E-wallets</div>
             </div>
         </div>
         
         <footer>
+            <div class="footer-logo">1WIN</div>
             <div class="trust-badges">
                 <div class="trust-badge">
-                    <span>✓</span>
-                    <span>Verificado</span>
+                    <span class="trust-badge-icon">✓</span>
+                    <span>Licencia Verificada</span>
                 </div>
                 <div class="trust-badge">
-                    <span>🛡️</span>
-                    <span>Pago Seguro</span>
+                    <span class="trust-badge-icon">🔒</span>
+                    <span>SSL Encriptado</span>
                 </div>
                 <div class="trust-badge">
-                    <span>⭐</span>
+                    <span class="trust-badge-icon">🎂</span>
                     <span>+18 Responsable</span>
                 </div>
             </div>
-            <p>© 2026 - Oferta sujeta a términos y condiciones. Juega responsablemente. +18</p>
+            <p class="footer-text">© 2026 - Oferta sujeta a términos y condiciones. Juega responsablemente. Solo mayores de 18 años. El juego puede ser adictivo.</p>
         </footer>
     </main>
     
@@ -480,26 +1486,119 @@
         <div class="notification-content">
             <div class="notification-avatar" id="notifAvatar">A</div>
             <div class="notification-text">
-                <span class="notification-user" id="notifUser">Usuario</span> acaba de reclamar su bono hace <strong id="notifTime">2 min</strong>
+                <div><span class="notification-user" id="notifUser">Usuario</span> <span class="notification-action" id="notifAction">reclamó su bono</span></div>
+                <div class="notification-time">hace <span id="notifTime">2</span> minutos</div>
             </div>
         </div>
     </div>
     
     <script>
-        // Loader
+        // Create Particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const colors = ['#00ff88', '#a855f7', '#00d4ff', '#ff2d75', '#ffd700'];
+            
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particle.style.animationDelay = (Math.random() * 10) + 's';
+                particle.style.width = (Math.random() * 4 + 2) + 'px';
+                particle.style.height = particle.style.width;
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+        
+        // Loader with status updates
+        const loaderStatuses = [
+            'Conectando al servidor...',
+            'Verificando disponibilidad...',
+            'Preparando tu bono exclusivo...',
+            '¡Bono encontrado! Cargando...'
+        ];
+        
+        let statusIndex = 0;
+        const statusInterval = setInterval(() => {
+            statusIndex++;
+            if (statusIndex < loaderStatuses.length) {
+                document.getElementById('loaderStatus').textContent = loaderStatuses[statusIndex];
+            }
+        }, 400);
+        
         window.addEventListener('load', function() {
             setTimeout(function() {
+                clearInterval(statusInterval);
                 document.getElementById('loader').classList.add('hidden');
-            }, 1500);
+                launchConfetti();
+            }, 1800);
         });
+        
+        // Confetti Effect
+        function launchConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const confetti = [];
+            const colors = ['#00ff88', '#a855f7', '#00d4ff', '#ff2d75', '#ffd700', '#ff6b35'];
+            
+            for (let i = 0; i < 150; i++) {
+                confetti.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    r: Math.random() * 6 + 2,
+                    d: Math.random() * 150,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    tilt: Math.random() * 10 - 10,
+                    tiltAngle: 0,
+                    tiltAngleIncrement: Math.random() * 0.1 + 0.05
+                });
+            }
+            
+            let animationFrame;
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                confetti.forEach((c, i) => {
+                    ctx.beginPath();
+                    ctx.lineWidth = c.r;
+                    ctx.strokeStyle = c.color;
+                    ctx.moveTo(c.x + c.tilt + c.r / 4, c.y);
+                    ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.r / 4);
+                    ctx.stroke();
+                    
+                    c.tiltAngle += c.tiltAngleIncrement;
+                    c.y += (Math.cos(c.d) + 2 + c.r / 2) * 1.5;
+                    c.tilt = Math.sin(c.tiltAngle) * 15;
+                    
+                    if (c.y > canvas.height) {
+                        confetti[i].y = -20;
+                        confetti[i].x = Math.random() * canvas.width;
+                    }
+                });
+                
+                animationFrame = requestAnimationFrame(draw);
+            }
+            
+            draw();
+            
+            setTimeout(() => {
+                cancelAnimationFrame(animationFrame);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }, 4000);
+        }
         
         // Countdown Timer
         function startCountdown() {
-            const countdownKey = 'countdownEndTime';
+            const countdownKey = 'countdownEndTime_v2';
             let endTime = localStorage.getItem(countdownKey);
             
             if (!endTime) {
-                endTime = Date.now() + (5 * 60 * 1000); // 5 minutes
+                endTime = Date.now() + (5 * 60 * 1000);
                 localStorage.setItem(countdownKey, endTime);
             } else {
                 endTime = parseInt(endTime);
@@ -522,57 +1621,93 @@
                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
                 
-                document.getElementById('countdown').textContent = 
-                    String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
             }
             
             updateCountdown();
             setInterval(updateCountdown, 1000);
         }
-        
         startCountdown();
         
+        // Online Users Counter
+        function updateOnlineUsers() {
+            const base = 1200;
+            const variation = Math.floor(Math.random() * 100) - 50;
+            const count = base + variation;
+            document.getElementById('onlineUsers').textContent = count.toLocaleString();
+        }
+        setInterval(updateOnlineUsers, 5000);
+        
+        // Spots Remaining
+        function updateSpots() {
+            const spotsEl = document.getElementById('spotsLeft');
+            let spots = parseInt(spotsEl.textContent);
+            if (Math.random() > 0.7 && spots > 2) {
+                spots--;
+                spotsEl.textContent = spots;
+            }
+        }
+        setInterval(updateSpots, 15000);
+        
         // Social Proof Notifications
-        const users = [
-            { name: 'Carlos M.', initial: 'C' },
-            { name: 'María G.', initial: 'M' },
-            { name: 'Jorge R.', initial: 'J' },
-            { name: 'Ana L.', initial: 'A' },
-            { name: 'Pedro S.', initial: 'P' },
-            { name: 'Laura V.', initial: 'L' },
-            { name: 'Diego F.', initial: 'D' },
-            { name: 'Sofia T.', initial: 'S' }
+        const notifications = [
+            { name: 'Carlos M.', initial: 'C', action: 'reclamó su bono de +500%' },
+            { name: 'María G.', initial: 'M', action: 'ganó $350 en slots' },
+            { name: 'Jorge R.', initial: 'J', action: 'se registró y recibió su bono' },
+            { name: 'Ana L.', initial: 'A', action: 'retiró $520' },
+            { name: 'Pedro S.', initial: 'P', action: 'acaba de ganar el jackpot' },
+            { name: 'Laura V.', initial: 'L', action: 'activó sus 150 giros gratis' },
+            { name: 'Diego F.', initial: 'D', action: 'reclamó su bono VIP' },
+            { name: 'Sofia T.', initial: 'S', action: 'ganó $780 en ruleta' },
+            { name: 'Miguel A.', initial: 'M', action: 'se unió hace un momento' },
+            { name: 'Elena R.', initial: 'E', action: 'cobró $1,200' }
         ];
         
         function showNotification() {
             const notification = document.getElementById('notification');
-            const randomUser = users[Math.floor(Math.random() * users.length)];
+            const randomNotif = notifications[Math.floor(Math.random() * notifications.length)];
             const randomTime = Math.floor(Math.random() * 5) + 1;
             
-            document.getElementById('notifUser').textContent = randomUser.name;
-            document.getElementById('notifAvatar').textContent = randomUser.initial;
-            document.getElementById('notifTime').textContent = randomTime + ' min';
+            document.getElementById('notifUser').textContent = randomNotif.name;
+            document.getElementById('notifAvatar').textContent = randomNotif.initial;
+            document.getElementById('notifAction').textContent = randomNotif.action;
+            document.getElementById('notifTime').textContent = randomTime;
             
             notification.classList.add('show');
             
             setTimeout(function() {
                 notification.classList.remove('show');
-            }, 4000);
+            }, 5000);
         }
         
-        // Show first notification after 3 seconds
-        setTimeout(showNotification, 3000);
+        setTimeout(showNotification, 4000);
+        setInterval(showNotification, 10000);
         
-        // Show notification every 8-15 seconds
-        setInterval(function() {
-            showNotification();
-        }, Math.random() * 7000 + 8000);
-        
-        // CTA Click Tracking
-        document.getElementById('ctaButton').addEventListener('click', function() {
-            // You can add analytics tracking here if needed
-            console.log('CTA Clicked');
+        // CTA Button Effects
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                // Ripple effect
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = e.clientX - rect.left - size/2 + 'px';
+                ripple.style.top = e.clientY - rect.top - size/2 + 'px';
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255,255,255,0.5)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s ease-out';
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
         });
+        
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `@keyframes ripple { to { transform: scale(2); opacity: 0; } }`;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
