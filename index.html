@@ -6,6 +6,10 @@
     <meta name="description" content="Bono Exclusivo Desbloqueado - Recibe hasta +500% en tu primer depósito. Oferta limitada por tiempo.">
     <meta name="theme-color" content="#0d111e">
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E🎁%3C/text%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E🎁%3C/text%3E%3C/svg%3E">
+    
     <!-- Open Graph Tags -->
     <meta property="og:title" content="🎁 Bono Exclusivo Desbloqueado +500%">
     <meta property="og:description" content="Oferta especial disponible por tiempo limitado. ¡Reclama tu premio ahora!">
@@ -18,6 +22,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     
     <title>🎁 Bono Exclusivo +500% | Oferta Limitada</title>
+    <meta name="description" content="Bono exclusivo de 1win para Chile 2026. Regístrate con el código promocional y obtén 500% en tu primer depósito. Guía oficial de acceso.">
+    <meta name="keywords" content="1win chile, bono 1win, codigo promocional 1win, apuestas deportivas, casino online, registro 1win">
+    <meta name="robots" content="index, follow">
     
     <style>
         * {
@@ -135,8 +142,8 @@
             font-weight: 900;
             background: linear-gradient(135deg, var(--neon-green), var(--neon-blue), var(--neon-purple));
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 30px;
             animation: logoGlow 2s ease-in-out infinite;
         }
@@ -1099,6 +1106,7 @@
             font-weight: 700;
             background: linear-gradient(135deg, var(--neon-green), var(--neon-purple));
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 15px;
         }
@@ -1191,6 +1199,390 @@
             margin-top: 3px;
         }
         
+        /* Popular Games Section */
+        .games-section {
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        .games-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--text-white);
+        }
+        
+        .games-subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-gray);
+            margin-bottom: 25px;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .game-card {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), rgba(168, 85, 247, 0.05));
+            border: 2px solid transparent;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 15px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-purple));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .game-card:hover::before {
+            opacity: 1;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.3);
+        }
+        
+        .game-icon {
+            font-size: 3rem;
+            margin-bottom: 12px;
+            display: block;
+            animation: gameFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes gameFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .game-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 8px;
+        }
+        
+        .game-description {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        .game-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+            color: white;
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 8px;
+        }
+        
+        /* Recent Winners Section */
+        .winners-section {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 107, 53, 0.1));
+            border: 2px solid var(--neon-gold);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .winners-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            color: var(--neon-gold);
+        }
+        
+        .winners-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .winner-item {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 12px;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            animation: slideInRight 0.5s ease-out;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .winner-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .winner-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--neon-gold), var(--neon-orange));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        
+        .winner-details {
+            text-align: left;
+        }
+        
+        .winner-name {
+            font-weight: 700;
+            color: var(--text-white);
+            font-size: 0.95rem;
+        }
+        
+        .winner-game {
+            font-size: 0.75rem;
+            color: var(--text-gray);
+        }
+        
+        .winner-amount {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--neon-green);
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            margin: 40px 0;
+        }
+        
+        .faq-title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            color: var(--text-white);
+        }
+        
+        .faq-item {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            border-color: rgba(0, 255, 136, 0.3);
+        }
+        
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .faq-question-text {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-white);
+        }
+        
+        .faq-icon {
+            font-size: 1.2rem;
+            color: var(--neon-green);
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .faq-answer-content {
+            padding: 0 25px 20px;
+            color: var(--text-gray);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+        
+        /* Live Statistics Ticker */
+        .live-ticker {
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 20px 0;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .ticker-content {
+            display: flex;
+            gap: 30px;
+            animation: scroll 30s linear infinite;
+            white-space: nowrap;
+        }
+        
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .ticker-icon {
+            color: var(--neon-green);
+            font-size: 1.1rem;
+        }
+        
+        .ticker-value {
+            color: var(--neon-green);
+            font-weight: 700;
+        }
+        
+        /* Bonus Tier Section */
+        .bonus-tiers {
+            background: var(--card-bg);
+            border: 2px solid var(--neon-purple);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        .tiers-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            color: var(--text-white);
+        }
+        
+        .tier-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .tier-card:hover {
+            background: rgba(168, 85, 247, 0.1);
+            border-color: rgba(168, 85, 247, 0.5);
+            transform: translateX(5px);
+        }
+        
+        .tier-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .tier-icon {
+            font-size: 2rem;
+        }
+        
+        .tier-details {
+            text-align: left;
+        }
+        
+        .tier-deposit {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-white);
+        }
+        
+        .tier-bonus {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+        }
+        
+        .tier-result {
+            text-align: right;
+        }
+        
+        .tier-amount {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--neon-purple);
+        }
+        
+        .tier-label {
+            font-size: 0.75rem;
+            color: var(--text-gray);
+            text-transform: uppercase;
+        }
+        
         /* Confetti Canvas */
         #confetti-canvas {
             position: fixed;
@@ -1240,6 +1632,26 @@
                 gap: 15px;
             }
             
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .games-title {
+                font-size: 1.3rem;
+            }
+            
+            .faq-title {
+                font-size: 1.5rem;
+            }
+            
+            .faq-question-text {
+                font-size: 0.95rem;
+            }
+            
+            .ticker-content {
+                animation: scroll 20s linear infinite;
+            }
+            
             .notification {
                 max-width: calc(100% - 40px);
                 left: 20px;
@@ -1253,6 +1665,24 @@
             .top-bar {
                 flex-direction: column;
                 gap: 10px;
+            }
+            
+            .winner-amount {
+                font-size: 1rem;
+            }
+            
+            .tier-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .tier-info {
+                flex-direction: column;
+            }
+            
+            .tier-result {
+                text-align: center;
             }
         }
     </style>
@@ -1386,6 +1816,214 @@
             </div>
         </div>
         
+        <!-- Live Statistics Ticker -->
+        <div class="live-ticker">
+            <div class="ticker-content" id="tickerContent">
+                <div class="ticker-item"><span class="ticker-icon">🎰</span> Juan ganó <span class="ticker-value">$450</span></div>
+                <div class="ticker-item"><span class="ticker-icon">💰</span> María retiró <span class="ticker-value">$820</span></div>
+                <div class="ticker-item"><span class="ticker-icon">🎮</span> Carlos está jugando <span class="ticker-value">Aviator</span></div>
+                <div class="ticker-item"><span class="ticker-icon">✨</span> Ana activó <span class="ticker-value">150 giros</span></div>
+                <div class="ticker-item"><span class="ticker-icon">🏆</span> Pedro ganó el <span class="ticker-value">Jackpot</span></div>
+                <div class="ticker-item"><span class="ticker-icon">🎁</span> Laura reclamó <span class="ticker-value">+500% bono</span></div>
+                <!-- Duplicate for seamless scroll -->
+                <div class="ticker-item"><span class="ticker-icon">🎰</span> Juan ganó <span class="ticker-value">$450</span></div>
+                <div class="ticker-item"><span class="ticker-icon">💰</span> María retiró <span class="ticker-value">$820</span></div>
+                <div class="ticker-item"><span class="ticker-icon">🎮</span> Carlos está jugando <span class="ticker-value">Aviator</span></div>
+                <div class="ticker-item"><span class="ticker-icon">✨</span> Ana activó <span class="ticker-value">150 giros</span></div>
+                <div class="ticker-item"><span class="ticker-icon">🏆</span> Pedro ganó el <span class="ticker-value">Jackpot</span></div>
+                <div class="ticker-item"><span class="ticker-icon">🎁</span> Laura reclamó <span class="ticker-value">+500% bono</span></div>
+            </div>
+        </div>
+        
+        <!-- Popular Games Section -->
+        <div class="games-section">
+            <div class="games-title">🎮 Juegos Más Populares</div>
+            <div class="games-subtitle">Usa tu bono en estos increíbles juegos</div>
+            <div class="games-grid">
+                <a href="https://1wqkor.com/betting?open=register&p=ujck" class="game-card" style="text-decoration: none;">
+                    <span class="game-icon">⚽</span>
+                    <div class="game-title">Apuestas Deportivas</div>
+                    <div class="game-description">Fútbol, tenis, basketball y más de 50 deportes</div>
+                    <span class="game-badge">🔥 Popular</span>
+                </a>
+                
+                <a href="https://1wqkor.com/v3/aviator-fire?p=r6wb" class="game-card" style="text-decoration: none;">
+                    <span class="game-icon">✈️</span>
+                    <div class="game-title">Aviator</div>
+                    <div class="game-description">El juego más emocionante del momento</div>
+                    <span class="game-badge">⚡ Tendencia</span>
+                </a>
+                
+                <a href="https://1wqkor.com/v3/aviator-fire?p=r6wb" class="game-card" style="text-decoration: none;">
+                    <span class="game-icon">🐯</span>
+                    <div class="game-title">Fortune Tiger</div>
+                    <div class="game-description">Gira y gana con el tigre de la fortuna</div>
+                    <span class="game-badge">💎 Jackpot</span>
+                </a>
+                
+                <a href="https://1wqkor.com/v3/6067/landing-chick-and-run?p=qpnb" class="game-card" style="text-decoration: none;">
+                    <span class="game-icon">🐣</span>
+                    <div class="game-title">Chick & Run</div>
+                    <div class="game-description">Carreras y premios instantáneos</div>
+                    <span class="game-badge">🎁 Nuevo</span>
+                </a>
+                
+                <a href="https://1wqkor.com/v3/3316/motive-video-promo?p=t0fa" class="game-card" style="text-decoration: none;">
+                    <span class="game-icon">📹</span>
+                    <div class="game-title">Video Promo</div>
+                    <div class="game-description">Descubre promociones exclusivas</div>
+                    <span class="game-badge">⭐ Exclusivo</span>
+                </a>
+                
+                <a href="https://1wqkor.com/v3/3316/motive-video-promo?p=t0fa" class="game-card" style="text-decoration: none;">
+                    <span class="game-icon">📈</span>
+                    <div class="game-title">Trading</div>
+                    <div class="game-description">Comercio de opciones binarias</div>
+                    <span class="game-badge">💹 Pro</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Recent Winners -->
+        <div class="winners-section">
+            <div class="winners-title">🏆 Ganadores Recientes</div>
+            <div class="winners-list">
+                <div class="winner-item">
+                    <div class="winner-info">
+                        <div class="winner-avatar">M</div>
+                        <div class="winner-details">
+                            <div class="winner-name">Miguel R. 🇲🇽</div>
+                            <div class="winner-game">Aviator • hace 3 min</div>
+                        </div>
+                    </div>
+                    <div class="winner-amount">$1,245</div>
+                </div>
+                
+                <div class="winner-item">
+                    <div class="winner-info">
+                        <div class="winner-avatar">S</div>
+                        <div class="winner-details">
+                            <div class="winner-name">Sofia M. 🇦🇷</div>
+                            <div class="winner-game">Fortune Tiger • hace 7 min</div>
+                        </div>
+                    </div>
+                    <div class="winner-amount">$890</div>
+                </div>
+                
+                <div class="winner-item">
+                    <div class="winner-info">
+                        <div class="winner-avatar">L</div>
+                        <div class="winner-details">
+                            <div class="winner-name">Luis C. 🇨🇴</div>
+                            <div class="winner-game">Deportes • hace 12 min</div>
+                        </div>
+                    </div>
+                    <div class="winner-amount">$670</div>
+                </div>
+                
+                <div class="winner-item">
+                    <div class="winner-info">
+                        <div class="winner-avatar">A</div>
+                        <div class="winner-details">
+                            <div class="winner-name">Ana V. 🇨🇱</div>
+                            <div class="winner-game">Ruleta • hace 18 min</div>
+                        </div>
+                    </div>
+                    <div class="winner-amount">$1,520</div>
+                </div>
+                
+                <div class="winner-item">
+                    <div class="winner-info">
+                        <div class="winner-avatar">D</div>
+                        <div class="winner-details">
+                            <div class="winner-name">Diego F. 🇵🇪</div>
+                            <div class="winner-game">Blackjack • hace 25 min</div>
+                        </div>
+                    </div>
+                    <div class="winner-amount">$2,100</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bonus Tiers -->
+        <div class="bonus-tiers">
+            <div class="tiers-title">💰 Niveles de Bonificación</div>
+            
+            <div class="tier-card">
+                <div class="tier-info">
+                    <span class="tier-icon">🥉</span>
+                    <div class="tier-details">
+                        <div class="tier-deposit">Deposita $10</div>
+                        <div class="tier-bonus">Recibe +500% de bono</div>
+                    </div>
+                </div>
+                <div class="tier-result">
+                    <div class="tier-amount">$60</div>
+                    <div class="tier-label">Total para jugar</div>
+                </div>
+            </div>
+            
+            <div class="tier-card">
+                <div class="tier-info">
+                    <span class="tier-icon">🥈</span>
+                    <div class="tier-details">
+                        <div class="tier-deposit">Deposita $50</div>
+                        <div class="tier-bonus">Recibe +500% de bono</div>
+                    </div>
+                </div>
+                <div class="tier-result">
+                    <div class="tier-amount">$300</div>
+                    <div class="tier-label">Total para jugar</div>
+                </div>
+            </div>
+            
+            <div class="tier-card">
+                <div class="tier-info">
+                    <span class="tier-icon">🥇</span>
+                    <div class="tier-details">
+                        <div class="tier-deposit">Deposita $100</div>
+                        <div class="tier-bonus">Recibe +500% de bono</div>
+                    </div>
+                </div>
+                <div class="tier-result">
+                    <div class="tier-amount">$600</div>
+                    <div class="tier-label">Total para jugar</div>
+                </div>
+            </div>
+            
+            <div class="tier-card">
+                <div class="tier-info">
+                    <span class="tier-icon">💎</span>
+                    <div class="tier-details">
+                        <div class="tier-deposit">Deposita $200</div>
+                        <div class="tier-bonus">Recibe +500% de bono</div>
+                    </div>
+                </div>
+                <div class="tier-result">
+                    <div class="tier-amount">$1,200</div>
+                    <div class="tier-label">Total para jugar</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="trust-section">
+            <div class="trust-title">📊 Estadísticas en Tiempo Real</div>
+            <div class="trust-stats">
+                <div class="trust-stat">
+                    <div class="trust-stat-value" id="totalPlayers">2.5M+</div>
+                    <div class="trust-stat-label">Jugadores Activos</div>
+                </div>
+                <div class="trust-stat">
+                    <div class="trust-stat-value">$15M+</div>
+                    <div class="trust-stat-label">Pagados este Mes</div>
+                </div>
+                <div class="trust-stat">
+                    <div class="trust-stat-value">4.9★</div>
+                    <div class="trust-stat-label">Calificación</div>
+                </div>
+            </div>
+        </div>
+        
         <div class="features">
             <div class="feature-card">
                 <span class="feature-icon">⚡</span>
@@ -1406,6 +2044,93 @@
                 <span class="feature-icon">🛡️</span>
                 <div class="feature-title">100% Seguro</div>
                 <div class="feature-text">Plataforma con licencia y encriptación SSL</div>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">📱</span>
+                <div class="feature-title">App Móvil</div>
+                <div class="feature-text">Juega desde cualquier lugar en tu smartphone</div>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">💬</span>
+                <div class="feature-title">Soporte 24/7</div>
+                <div class="feature-text">Atención al cliente en español las 24 horas</div>
+            </div>
+        </div>
+        
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <div class="faq-title">❓ Preguntas Frecuentes</div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="faq-question-text">¿Cómo reclamo mi bono del +500%?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Es muy simple: 1) Haz clic en "RECLAMAR MI BONO", 2) Regístrate en menos de 30 segundos, 3) Realiza tu primer depósito (mínimo $10), y 4) Tu bono se acreditará automáticamente. ¡Así de fácil!
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="faq-question-text">¿Cuánto tiempo tarda en acreditarse el bono?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        El bono se acredita de forma instantánea después de tu primer depósito. En casos excepcionales puede tomar hasta 24 horas, pero normalmente lo verás en tu cuenta en segundos.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="faq-question-text">¿Puedo retirar mis ganancias?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        ¡Por supuesto! Todas las ganancias obtenidas con tu bono son 100% retirables. Solo necesitas cumplir con los requisitos de apuesta (rollover) que son estándar en la industria. Los retiros se procesan en menos de 24 horas.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="faq-question-text">¿Qué métodos de pago puedo usar?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Aceptamos múltiples métodos: tarjetas de crédito/débito (Visa, Mastercard), transferencias bancarias, criptomonedas (Bitcoin, USDT), y e-wallets populares. Todos los métodos son seguros y encriptados.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="faq-question-text">¿Es seguro jugar en 1WIN?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Absolutamente. 1WIN cuenta con todas las licencias necesarias, utiliza encriptación SSL de nivel bancario, y procesa más de $15 millones en pagos mensualmente. Más de 2.5 millones de jugadores confían en nuestra plataforma.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="faq-question-text">¿Por qué esta oferta es exclusiva?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Esta promoción especial del +500% solo está disponible a través de este enlace de invitación. Los usuarios que se registran directamente en el sitio web reciben un bono menor. Por eso es importante reclamar tu bono ahora antes de que expire.
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -1440,6 +2165,21 @@
                 </div>
                 <div class="testimonial-text">"Mejor plataforma que he probado. El bono es real y los retiros son super rápidos. 100% recomendado."</div>
                 <div class="testimonial-amount">💰 Ganó $1,200</div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">R</div>
+                    <div class="testimonial-info">
+                        <div class="testimonial-name">Roberto L.</div>
+                        <div class="testimonial-meta">
+                            <span class="testimonial-verified">✓ Verificado</span>
+                            <span class="testimonial-stars">★★★★★</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-text">"Excelente atención al cliente. Me ayudaron con todo el proceso y el bono se acreditó al instante. ¡Gané en Aviator!"</div>
+                <div class="testimonial-amount">💰 Ganó $2,350</div>
             </div>
         </div>
         
@@ -1708,6 +2448,75 @@
         const style = document.createElement('style');
         style.textContent = `@keyframes ripple { to { transform: scale(2); opacity: 0; } }`;
         document.head.appendChild(style);
+        
+        // FAQ Toggle Function
+        function toggleFaq(element) {
+            const faqItem = element.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
+        
+        // Make toggleFaq globally available
+        window.toggleFaq = toggleFaq;
+        
+        // Update Winners List Periodically
+        const winnersData = [
+            { name: 'Miguel R.', flag: '🇲🇽', initial: 'M', game: 'Aviator', amount: '$1,245' },
+            { name: 'Sofia M.', flag: '🇦🇷', initial: 'S', game: 'Fortune Tiger', amount: '$890' },
+            { name: 'Luis C.', flag: '🇨🇴', initial: 'L', game: 'Deportes', amount: '$670' },
+            { name: 'Ana V.', flag: '🇨🇱', initial: 'A', game: 'Ruleta', amount: '$1,520' },
+            { name: 'Diego F.', flag: '🇵🇪', initial: 'D', game: 'Blackjack', amount: '$2,100' },
+            { name: 'Carla S.', flag: '🇺🇾', initial: 'C', game: 'Slots', amount: '$950' },
+            { name: 'Pablo N.', flag: '🇵🇦', initial: 'P', game: 'Aviator', amount: '$1,680' },
+            { name: 'Lucia T.', flag: '🇪🇨', initial: 'L', game: 'Poker', amount: '$775' },
+            { name: 'Roberto V.', flag: '🇧🇴', initial: 'R', game: 'Trading', amount: '$1,345' },
+            { name: 'Valentina P.', flag: '🇵🇾', initial: 'V', game: 'Fortune Tiger', amount: '$1,125' }
+        ];
+        
+        function updateWinnersList() {
+            const winnersList = document.querySelector('.winners-list');
+            if (!winnersList) return;
+            
+            // Shuffle array and take first 5
+            const shuffled = winnersData.sort(() => 0.5 - Math.random()).slice(0, 5);
+            
+            winnersList.innerHTML = shuffled.map(winner => `
+                <div class="winner-item">
+                    <div class="winner-info">
+                        <div class="winner-avatar">${winner.initial}</div>
+                        <div class="winner-details">
+                            <div class="winner-name">${winner.name} ${winner.flag}</div>
+                            <div class="winner-game">${winner.game} • hace ${Math.floor(Math.random() * 30) + 1} min</div>
+                        </div>
+                    </div>
+                    <div class="winner-amount">${winner.amount}</div>
+                </div>
+            `).join('');
+        }
+        
+        // Update winners list every 20 seconds
+        setInterval(updateWinnersList, 20000);
     </script>
+
+    <footer style="margin-top: 50px; padding: 20px; font-size: 0.8rem; color: #555; text-align: left; max-width: 600px;">
+        <h2>Sobre el Bono de Bienvenida 1win</h2>
+        <p>Esta oferta es válida para nuevos usuarios en Chile y Latinoamérica. El código promocional permite acceder a un multiplicador del 500% dividido en las primeras cuatro recargas.</p>
+        <h3>¿Cómo activar el beneficio?</h3>
+        <ol>
+            <li>Haz clic en el botón de reclamo seguro.</li>
+            <li>Completa el registro rápido (correo o redes sociales).</li>
+            <li>Realiza un depósito mínimo para activar la cuenta.</li>
+        </ol>
+        <p>Plataforma segura con retiro inmediato a través de bancos locales y criptomonedas.</p>
+    </footer>
 </body>
 </html>
