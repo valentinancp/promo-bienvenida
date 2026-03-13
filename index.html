@@ -27,6 +27,18 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://bono.matheodarkhass.win/" />
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+
+    <script>
+    (function () {
+        var storageKey = 'landing_ab_version_v1';
+        var assigned = localStorage.getItem(storageKey);
+        if (!assigned) {
+            assigned = Math.random() < 0.5 ? 'version-agresiva' : 'version-limpia';
+            localStorage.setItem(storageKey, assigned);
+        }
+        document.documentElement.classList.add(assigned);
+    })();
+    </script>
     
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -88,6 +100,56 @@
             overflow-x: hidden;
             min-height: 100vh;
             position: relative;
+            padding-top: 76px;
+        }
+
+        .progress-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 12000;
+            background: rgba(5, 8, 16, 0.92);
+            border-bottom: 1px solid rgba(0, 255, 136, 0.25);
+            backdrop-filter: blur(10px);
+            padding: 10px 14px;
+        }
+
+        .progress-track {
+            width: min(680px, 100%);
+            margin: 0 auto;
+        }
+
+        .progress-text {
+            font-size: 0.82rem;
+            color: var(--text-light);
+            margin-bottom: 8px;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+
+        .progress-line {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .progress-fill {
+            width: 80%;
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00d4ff, #a855f7);
+            background-size: 180% 180%;
+            animation: progressShimmer 2.2s linear infinite;
+            transition: width 0.45s ease;
+            will-change: transform, opacity;
+        }
+
+        @keyframes progressShimmer {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
         }
         
         /* Animated Background */
@@ -511,6 +573,64 @@
             z-index: 1;
             text-align: center;
         }
+
+        .reveal-stage {
+            margin-top: 10px;
+        }
+
+        .reveal-helper {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            margin-bottom: 14px;
+        }
+
+        .reveal-button {
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-green));
+            color: #031218;
+            font-weight: 900;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 14px 22px;
+            border-radius: 14px;
+            box-shadow: 0 14px 34px rgba(0, 212, 255, 0.35);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .reveal-button:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 18px 40px rgba(0, 212, 255, 0.45);
+        }
+
+        .offer-hidden {
+            display: none;
+        }
+
+        .revealed-offer {
+            animation: revealOffer 0.5s ease-out;
+        }
+
+        @keyframes revealOffer {
+            from { opacity: 0; transform: scale(0.94); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .revealed-code {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 0 14px;
+            padding: 8px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 136, 0.4);
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--neon-green);
+            font-weight: 800;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
         
         .offer-label {
             font-size: 14px;
@@ -781,6 +901,28 @@
                 inset 0 1px 0 rgba(255, 255, 255, 0.3);
             animation: buttonGlow 2s ease-in-out infinite, buttonPop 0.5s ease-out;
             transition: all 0.3s ease;
+            will-change: transform, opacity;
+        }
+
+        @keyframes heartbeatFast {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.055); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.05); }
+            70% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes ctaEscape {
+            0% { transform: translateX(0) translateY(0) scale(1.02); }
+            25% { transform: translateX(-3px) translateY(-2px) scale(1.04); }
+            50% { transform: translateX(5px) translateY(1px) scale(1.03); }
+            75% { transform: translateX(-4px) translateY(-1px) scale(1.05); }
+            100% { transform: translateX(0) translateY(0) scale(1.03); }
+        }
+
+        .cta-button.chase {
+            animation: buttonGlow 1.15s ease-in-out infinite, heartbeatFast 0.8s ease-in-out infinite, ctaEscape 1.1s ease-in-out infinite;
         }
         
         @keyframes buttonPop {
@@ -914,6 +1056,40 @@
             font-size: 0.95rem;
             font-weight: 700;
             letter-spacing: 0.3px;
+        }
+
+        .sticky-mobile-cta {
+            position: fixed;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            z-index: 2500;
+            transform: translateY(130%);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            pointer-events: none;
+            will-change: transform, opacity;
+        }
+
+        .sticky-mobile-cta.show {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .sticky-mobile-cta .sticky-link {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 14px;
+            padding: 14px 16px;
+            color: #021209;
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            font-size: 1rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            box-shadow: 0 12px 30px rgba(0, 212, 255, 0.35);
+            text-transform: uppercase;
         }
         
         /* Trust Section */
@@ -1256,6 +1432,7 @@
             transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             z-index: 1000;
             backdrop-filter: blur(10px);
+            will-change: transform, opacity;
         }
         
         .notification.show {
@@ -1582,6 +1759,7 @@
             gap: 30px;
             animation: scroll 30s linear infinite;
             white-space: nowrap;
+            will-change: transform;
         }
         
         @keyframes scroll {
@@ -1698,6 +1876,11 @@
         
         /* Responsive */
         @media (max-width: 650px) {
+            body {
+                padding-top: 84px;
+                padding-bottom: 90px;
+            }
+
             h1 {
                 font-size: 2.2rem;
             }
@@ -1786,10 +1969,34 @@
             .tier-result {
                 text-align: center;
             }
+
+            .sticky-mobile-cta .sticky-link {
+                font-size: 0.95rem;
+                padding: 13px 14px;
+            }
+        }
+
+        .version-limpia .particles,
+        .version-limpia #confetti-canvas,
+        .version-limpia .live-ticker {
+            display: none !important;
+        }
+
+        .version-limpia .cta-button.chase {
+            animation: buttonGlow 2s ease-in-out infinite !important;
         }
     </style>
 </head>
 <body>
+    <div class="progress-fixed">
+        <div class="progress-track">
+            <div class="progress-text" id="progressText">Tu bono está casi listo. Paso final requerido</div>
+            <div class="progress-line">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Background Animation -->
     <div class="bg-animation"></div>
     
@@ -1839,23 +2046,31 @@
             <div class="offer-glow"></div>
             <div class="offer-content">
                 <div class="offer-label">Bono de Bienvenida</div>
-                <div class="offer-amount">+500%</div>
-                <div class="offer-subtitle">En tu Primer Depósito</div>
-                <div class="offer-description">
-                    💎 Deposita $10 → Juega con $60 | Deposita $50 → Juega con $300 | Deposita $100 → Juega con $600
+                <div class="reveal-stage" id="revealStage">
+                    <div class="reveal-helper">Haz clic para revelar tu código y desbloquear el bono completo</div>
+                    <button class="reveal-button" id="revealBonusButton" type="button">Revelar Código</button>
                 </div>
-                <div class="bonus-breakdown">
-                    <div class="bonus-item">
-                        <div class="bonus-item-value">150</div>
-                        <div class="bonus-item-label">Giros Gratis</div>
+
+                <div class="revealed-offer offer-hidden" id="revealedOffer">
+                    <div class="revealed-code">Codigo: BONO500VIP</div>
+                    <div class="offer-amount">+500%</div>
+                    <div class="offer-subtitle">En tu Primer Depósito</div>
+                    <div class="offer-description">
+                        💎 Deposita $10 → Juega con $60 | Deposita $50 → Juega con $300 | Deposita $100 → Juega con $600
                     </div>
-                    <div class="bonus-item">
-                        <div class="bonus-item-value">$500</div>
-                        <div class="bonus-item-label">Bono Máximo</div>
-                    </div>
-                    <div class="bonus-item">
-                        <div class="bonus-item-value">24h</div>
-                        <div class="bonus-item-label">Acreditación</div>
+                    <div class="bonus-breakdown">
+                        <div class="bonus-item">
+                            <div class="bonus-item-value">150</div>
+                            <div class="bonus-item-label">Giros Gratis</div>
+                        </div>
+                        <div class="bonus-item">
+                            <div class="bonus-item-value">$500</div>
+                            <div class="bonus-item-label">Bono Máximo</div>
+                        </div>
+                        <div class="bonus-item">
+                            <div class="bonus-item-value">24h</div>
+                            <div class="bonus-item-label">Acreditación</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2343,8 +2558,27 @@
             </div>
         </div>
     </div>
+
+    <div class="sticky-mobile-cta" id="stickyMobileCta">
+        <a href="https://1wjsit.life/?open=register&p=3w9p" class="sticky-link">RECLAMAR AHORA</a>
+    </div>
     
     <script>
+        // Progress + completion state
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+
+        function updateProgress(value, text) {
+            if (progressFill) {
+                progressFill.style.width = Math.max(0, Math.min(100, value)) + '%';
+            }
+            if (progressText && text) {
+                progressText.textContent = text;
+            }
+        }
+
+        updateProgress(80, 'Tu bono está casi listo. Paso final requerido');
+
         // Create Particles
         function createParticles() {
             const container = document.getElementById('particles');
@@ -2390,6 +2624,11 @@
         
         // Confetti Effect
         function launchConfetti() {
+            if (window.innerWidth <= 768) {
+                console.log('Confeti desactivado en móvil');
+                return;
+            }
+
             const canvas = document.getElementById('confetti-canvas');
             const ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
@@ -2532,13 +2771,60 @@
                 notification.classList.remove('show');
             }, 5000);
         }
-        
-        setTimeout(showNotification, 4000);
-        setInterval(showNotification, 10000);
+
+        function scheduleVariableNotification() {
+            const delay = Math.floor(Math.random() * 6000) + 2000;
+            setTimeout(() => {
+                showNotification();
+                scheduleVariableNotification();
+            }, delay);
+        }
+
+        setTimeout(() => {
+            showNotification();
+            scheduleVariableNotification();
+        }, 2500);
+
+        // Offer reveal gamification
+        const revealButton = document.getElementById('revealBonusButton');
+        const revealStage = document.getElementById('revealStage');
+        const revealedOffer = document.getElementById('revealedOffer');
+
+        if (revealButton && revealStage && revealedOffer) {
+            revealButton.addEventListener('click', () => {
+                revealStage.classList.add('offer-hidden');
+                revealedOffer.classList.remove('offer-hidden');
+                updateProgress(92, 'Excelente. Tu bono está desbloqueado, solo falta reclamarlo.');
+            });
+        }
+
+        // Sticky CTA for mobile scroll
+        const stickyMobileCta = document.getElementById('stickyMobileCta');
+        function handleStickyCta() {
+            if (!stickyMobileCta) return;
+            const shouldShow = window.innerWidth <= 768 && window.scrollY > 280;
+            stickyMobileCta.classList.toggle('show', shouldShow);
+        }
+        window.addEventListener('scroll', handleStickyCta, { passive: true });
+        window.addEventListener('resize', handleStickyCta);
+        handleStickyCta();
         
         // CTA Button Effects
         document.querySelectorAll('.cta-button').forEach(button => {
+            let chaseTimeout;
+
+            const triggerChase = () => {
+                button.classList.add('chase');
+                clearTimeout(chaseTimeout);
+                chaseTimeout = setTimeout(() => button.classList.remove('chase'), 1100);
+            };
+
+            button.addEventListener('mouseenter', triggerChase);
+            button.addEventListener('touchstart', triggerChase, { passive: true });
+
             button.addEventListener('click', function(e) {
+                updateProgress(100, 'Listo. Pulsa de nuevo para finalizar tu acceso al bono.');
+
                 // Ripple effect
                 const ripple = document.createElement('span');
                 const rect = this.getBoundingClientRect();
