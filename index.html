@@ -1034,6 +1034,15 @@
             z-index: 1;
         }
 
+        .cta-brand-stack {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
         .cta-brand-logo {
             position: relative;
             z-index: 1;
@@ -1042,6 +1051,36 @@
             height: auto;
             border-radius: 8px;
             filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.18));
+        }
+
+        .cta-brand-caption {
+            position: relative;
+            z-index: 1;
+            color: #04140a;
+            font-size: 0.92rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+
+        .cta-button-stake .cta-brand-caption {
+            color: #ffffff;
+        }
+
+        .cta-brand-code {
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.18);
+            color: #04140a;
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.8px;
         }
         
         .cta-subtext {
@@ -1483,6 +1522,48 @@
         .second-cta-text {
             color: var(--text-gray);
             margin-bottom: 20px;
+        }
+
+        .second-cta-timer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin: 0 0 20px;
+        }
+
+        .second-cta-timebox {
+            min-width: 86px;
+            padding: 10px 12px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(0, 255, 136, 0.22);
+        }
+
+        .second-cta-timevalue {
+            display: block;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--neon-green);
+            line-height: 1;
+            text-shadow: 0 0 14px rgba(0, 255, 136, 0.4);
+        }
+
+        .second-cta-timelabel {
+            display: block;
+            margin-top: 6px;
+            font-size: 0.72rem;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .second-cta-separator {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--neon-green);
+            opacity: 0.7;
         }
         
         /* Social Proof Notification */
@@ -2173,8 +2254,11 @@
         <div class="cta-container">
             <span class="cta-arrows left">👉</span>
             <a href="https://1wjsit.life/?open=register&p=3w9p" class="cta-button" id="ctaButton">
-                <span class="cta-button-icon">🎁</span>
-                <img src="https://raw.githubusercontent.com/MatheoDark/promo-bienvenida/refs/heads/main/media/Logo.jpeg" alt="1WIN" class="cta-brand-logo">
+                <span class="cta-brand-stack">
+                    <img src="https://raw.githubusercontent.com/MatheoDark/promo-bienvenida/refs/heads/main/media/Logo.jpeg" alt="1WIN" class="cta-brand-logo">
+                    <span class="cta-brand-caption">Reclamar bono de 1win</span>
+                    <span class="cta-brand-code">Codigo: WINCLP</span>
+                </span>
             </a>
             <span class="cta-arrows right">👈</span>
         </div>
@@ -2590,8 +2674,23 @@
         <div class="second-cta">
             <div class="second-cta-title">⏰ ¿Todavía tienes dudas?</div>
             <div class="second-cta-text">Esta oferta desaparecerá cuando el temporizador llegue a cero. No pierdas esta oportunidad única.</div>
+            <div class="second-cta-timer">
+                <div class="second-cta-timebox">
+                    <span class="second-cta-timevalue" id="minutesBottom">05</span>
+                    <span class="second-cta-timelabel">Minutos</span>
+                </div>
+                <span class="second-cta-separator">:</span>
+                <div class="second-cta-timebox">
+                    <span class="second-cta-timevalue" id="secondsBottom">00</span>
+                    <span class="second-cta-timelabel">Segundos</span>
+                </div>
+            </div>
             <a href="https://1wjsit.life/?open=register&p=3w9p" class="cta-button" style="font-size: 1.1rem; padding: 20px;">
-                <img src="https://raw.githubusercontent.com/MatheoDark/promo-bienvenida/refs/heads/main/media/Logo.jpeg" alt="1WIN" class="cta-brand-logo">
+                <span class="cta-brand-stack">
+                    <img src="https://raw.githubusercontent.com/MatheoDark/promo-bienvenida/refs/heads/main/media/Logo.jpeg" alt="1WIN" class="cta-brand-logo">
+                    <span class="cta-brand-caption">Entrar en 1win</span>
+                    <span class="cta-brand-code">Codigo: WINCLP</span>
+                </span>
             </a>
         </div>
         
@@ -2794,6 +2893,13 @@
                 
                 document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
                 document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+
+                const minutesBottom = document.getElementById('minutesBottom');
+                const secondsBottom = document.getElementById('secondsBottom');
+                if (minutesBottom && secondsBottom) {
+                    minutesBottom.textContent = String(minutes).padStart(2, '0');
+                    secondsBottom.textContent = String(seconds).padStart(2, '0');
+                }
             }
             
             updateCountdown();
