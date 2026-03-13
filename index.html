@@ -853,7 +853,32 @@
         }
 
         .secondary-cta-container {
-            margin: 14px 0 0;
+            margin: 16px 0 0;
+            padding: 16px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.14), rgba(15, 23, 42, 0.82));
+            border: 1px solid rgba(14, 165, 233, 0.38);
+            box-shadow: 0 14px 36px rgba(14, 165, 233, 0.16);
+            backdrop-filter: blur(10px);
+        }
+
+        .secondary-cta-label {
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+            color: #7dd3fc;
+            margin-bottom: 12px;
+        }
+
+        .secondary-cta-logo {
+            width: 124px;
+            max-width: 42vw;
+            height: auto;
+            display: block;
+            margin: 0 auto 12px;
+            filter: drop-shadow(0 0 10px rgba(14, 165, 233, 0.35));
         }
         
         .cta-arrows {
@@ -1390,13 +1415,27 @@
             -webkit-text-fill-color: transparent;
             margin-bottom: 15px;
         }
+
+        .footer-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
         
         .footer-logo-img {
             width: 120px;
             height: auto;
             border-radius: 10px;
-            margin-bottom: 15px;
             filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.5));
+        }
+
+        .footer-logo-img.stake {
+            width: 132px;
+            border-radius: 0;
+            filter: drop-shadow(0 0 10px rgba(14, 165, 233, 0.38));
         }
         
         .loader-logo-img {
@@ -2131,6 +2170,8 @@
         </div>
 
         <div class="secondary-cta-container">
+            <div class="secondary-cta-label">Opción 2: Referido directo de Stake</div>
+            <img src="https://raw.githubusercontent.com/MatheoDark/promo-bienvenida/3c26c872f52150b3c84ade21ea9058c2ac8a8e66/media/stake-full.tLL7usOz.svg" alt="Stake" class="secondary-cta-logo">
             <a href="https://stake.com/?c=3UsGeLgH" class="cta-button cta-button-stake" id="ctaButtonStake" target="_blank" rel="noopener noreferrer nofollow">
                 <span class="cta-button-icon">🎯</span>
                 <span class="cta-button-text">ABRIR BONO STAKE</span>
@@ -2555,7 +2596,10 @@
         </div>
         
         <footer>
-            <img src="https://raw.githubusercontent.com/MatheoDark/promo-bienvenida/refs/heads/main/media/Logo.jpeg" alt="1WIN Logo" class="footer-logo-img">
+            <div class="footer-logos">
+                <img src="https://raw.githubusercontent.com/MatheoDark/promo-bienvenida/refs/heads/main/media/Logo.jpeg" alt="1WIN Logo" class="footer-logo-img">
+                <img src="https://raw.githubusercontent.com/MatheoDark/promo-bienvenida/3c26c872f52150b3c84ade21ea9058c2ac8a8e66/media/stake-full.tLL7usOz.svg" alt="Stake Logo" class="footer-logo-img stake">
+            </div>
             <div class="trust-badges">
                 <div class="trust-badge">
                     <span class="trust-badge-icon">✓</span>
