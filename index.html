@@ -3546,6 +3546,33 @@
                 window.__googleTranslateLoaded = true;
             }
 
+            function applyLanguageWithGoogleCombo(language, onDone) {
+                if (language === sourceLanguage) {
+                    if (typeof onDone === 'function') onDone(true);
+                    return;
+                }
+
+                let tries = 0;
+                const maxTries = 20;
+                const timer = setInterval(function () {
+                    tries += 1;
+                    const combo = document.querySelector('.goog-te-combo');
+
+                    if (combo) {
+                        combo.value = language;
+                        combo.dispatchEvent(new Event('change'));
+                        clearInterval(timer);
+                        if (typeof onDone === 'function') onDone(true);
+                        return;
+                    }
+
+                    if (tries >= maxTries) {
+                        clearInterval(timer);
+                        if (typeof onDone === 'function') onDone(false);
+                    }
+                }, 250);
+            }
+
             function applyLanguagePreference(language, shouldReload) {
                 if (!supported.includes(language)) {
                     return;
@@ -3581,19 +3608,37 @@
                 const expectedValue = '/' + sourceLanguage + '/' + initialLanguage;
                 const currentValue = getGoogTransCookie();
 
-                if (currentValue !== expectedValue && !sessionStorage.getItem(reloadKey)) {
+                if (currentValue !== expectedValue) {
                     setTranslationCookie(initialLanguage);
-                    sessionStorage.setItem(reloadKey, '1');
-                    location.reload();
-                    return;
                 }
 
-                sessionStorage.removeItem(reloadKey);
+                applyLanguageWithGoogleCombo(initialLanguage, function (ok) {
+                    if (!ok && !sessionStorage.getItem(reloadKey)) {
+                        sessionStorage.setItem(reloadKey, '1');
+                        location.reload();
+                        return;
+                    }
+
+                    sessionStorage.removeItem(reloadKey);
+                });
             }
 
             if (applyLanguageButton && languageSelector) {
                 applyLanguageButton.addEventListener('click', function () {
-                    applyLanguagePreference(languageSelector.value, true);
+                    const selected = languageSelector.value;
+                    applyLanguagePreference(selected, false);
+
+                    if (selected === sourceLanguage) {
+                        location.reload();
+                        return;
+                    }
+
+                    ensureGoogleTranslateScript();
+                    applyLanguageWithGoogleCombo(selected, function (ok) {
+                        if (!ok) {
+                            location.reload();
+                        }
+                    });
                 });
             }
         })();
